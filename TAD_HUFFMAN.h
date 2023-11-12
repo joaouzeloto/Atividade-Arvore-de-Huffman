@@ -13,7 +13,7 @@ struct caixas
 };
 typedef struct caixas Box;
 
-char criaSimAl() {
+char criaSimbAl() {
     srand(time(NULL));
     int numeroAleatorio = rand() % 26 + 65;
     char letraSorteada = (char)numeroAleatorio;
@@ -35,14 +35,14 @@ char existe(Box *B, char a)
 void ordenaBox(Box **B,Box **novo)
 {
 	Box *ant=NULL,*prox=*B;
-	while(prox!=NULL&&-novo>arv->qtde>prox->arv->qtde)
+	while(prox!=NULL&&(*novo)->arv->qtde>prox->arv->qtde)
 	{
 		ant = prox;
 		prox = prox->prox;
 	}
 	if(ant==NULL)
 	{
-		*novo->prox = *B;
+		(*novo)->prox = *B;
 		*B = *novo;
 	}
 	else
@@ -51,7 +51,7 @@ void ordenaBox(Box **B,Box **novo)
 		else
 			{
 				ant->prox = *novo;
-				*novo->prox = prox;
+				(*novo)->prox = prox;
 			}
 }
 	
@@ -70,7 +70,7 @@ void criaCaixas(Box **boxI,int qtde)
 		*boxI = novoB;
 	else
 	{
-		ordenaBox(*&boxI,&novo);
+		ordenaBox(*&boxI,&novoB);
 	}
 }
 
