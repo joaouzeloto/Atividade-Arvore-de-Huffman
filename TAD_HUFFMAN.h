@@ -20,6 +20,14 @@ char criaSimbAl() {
     return letraSorteada;
 }
 
+struct auxiliarString
+{
+	char palavra[30], simbo, codHuff[15];
+	int qtde;
+	struct auxiliarString *prox;
+};
+typedef struct auxiliarString auxStr;
+
 char existe(Box *B, char a)
 {
 	while(B!=NULL)
@@ -56,16 +64,17 @@ void ordenaBox(Box **B,Box **novo)
 }
 	
 
-void criaCaixas(Box **boxI,int qtde)
+void criaCaixas(Box **boxI,auxStr **auxS)
 {
 	Box *novoB = (Box*) malloc(sizeof(Box));
 	Tree *novo = (Tree*) malloc(sizeof(Tree));
-	novo->qtde = qtde;
+	novo->qtde = (*auxS)->qtde;
 	novo->simb = criaSimbAl();
 	while(existe(*boxI,novo->simb))
 		novo->simb = criaSimbAl();
 	novoB->arv = novo;
 	novoB->prox = NULL;
+	(*auxS)->simbo = novo->simb;
 	if(*boxI==NULL)
 		*boxI = novoB;
 	else
