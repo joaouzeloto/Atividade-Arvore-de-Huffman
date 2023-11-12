@@ -13,20 +13,19 @@ struct caixas
 };
 typedef struct caixas Box;
 
-char criaSimbAl() {
-    srand(time(NULL));
-    int numeroAleatorio = rand() % 26 + 65;
-    char letraSorteada = (char)numeroAleatorio;
-    return letraSorteada;
-}
-
 struct auxiliarString
 {
-	char palavra[30], simbo, codHuff[15];
+	char palavra[30], codHuff[15],simbo;
 	int qtde;
 	struct auxiliarString *prox;
 };
 typedef struct auxiliarString auxStr;
+
+char criaSimbAl() {
+    int numeroAleatorio = rand() % 26 + 65;
+    char letraSorteada = (char)numeroAleatorio;
+    return letraSorteada;
+}
 
 char existe(Box *B, char a)
 {

@@ -103,32 +103,37 @@ void setQtdeAll(char frase[],auxStr **palavras)
 
 int main()
 {
-	//teste de inserção
+	//DECLARAÇÃO DE VARIÁVEIS
 	auxStr *list=NULL,*auxL;
 	Box *tree = NULL,* aux;
 	char frase[350];
 	strcpy(frase,"Amo como ama o amor. Nao conheco nenhuma outra razao para amar senao amar.Que queres que te diga, alem de que te amo, se o que quero dizer-te e que te amo?");
-	/*
-	criaCaixas(&tree,4); 
-	criaCaixas(&tree,5); 
-	criaCaixas(&tree,3); 
-	criaCaixas(&tree,15); 
-	criaCaixas(&tree,10); 
-	// mostrando resultado
-	aux = tree;
-	while(aux!=NULL)
-	{
-		printf("\nSIMBOLO: %c - QUANTIDADE: %d",aux->arv->simb,aux->arv->qtde);
-		aux = aux->prox;
-	}*/
-	//testando separador de palavras
-	separaPalavras(frase, &list);
-	setQtdeAll(frase,&list);
-	//laço para mostrar as palavras encontradas
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	separaPalavras(frase, &list);//SEPARA CADA PALAVRA DA FRASE
+	setQtdeAll(frase,&list);//RODA PARA ACHAR A QTDE QUE AS PALAVRAS OCORREM
+	//LAÇO PARA CRIAR AS LISTAS COM ÁRVORES
 	auxL = list;
 	while(auxL!=NULL)
 	{
-		printf("\nPALAVRA: %s	-	QTDE: %d",auxL->palavra,auxL->qtde);
+		criaCaixas(&tree,&auxL);
 		auxL = auxL->prox;
 	}
+	//EXIBINDO A LISTA DE PALAVRA E SUAS INFORMAÇÕES(AINDA SEM CÓDIGO BINÁRIO)
+	auxL = list;
+	while(auxL!=NULL)
+	{
+		printf("\nPALAVRA: %s	-	QTDE: %d	-Simbolo: %c",auxL->palavra,auxL->qtde,auxL->simbo);
+		auxL = auxL->prox;
+	}
+	printf("\n");
+	aux = tree;
+	//EXIBE ESTADO ATUAL DA ÁRVORE
+	while(aux!=NULL)
+	{
+		printf("\nSIMBOLO: %c\tQUANTIDADE: %d",aux->arv->simb,aux->arv->qtde);
+		aux = aux->prox;
+	}
+	//CRIA A ÁRVORE DE HUFFMAN
+	//criarHuffman(&tree);
 }
