@@ -136,5 +136,5 @@ int main()
 	}
 	//CRIA A ÁRVORE DE HUFFMAN
 	criaHuffman(&tree);
-	printf("\n%d",tree->arv->qtde);
+	exibeTree(tree->arv);
 }

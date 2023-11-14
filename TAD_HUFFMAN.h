@@ -68,6 +68,7 @@ void criaCaixas(Box **boxI,auxStr **auxS)
 	Box *novoB = (Box*) malloc(sizeof(Box));
 	Tree *novo = (Tree*) malloc(sizeof(Tree));
 	novo->qtde = (*auxS)->qtde;
+	novo->esq = novo->dir = NULL;
 	novo->simb = criaSimbAl();
 	while(existe(*boxI,novo->simb))
 		novo->simb = criaSimbAl();
