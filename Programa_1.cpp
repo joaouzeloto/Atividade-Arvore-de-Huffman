@@ -135,5 +135,6 @@ int main()
 		aux = aux->prox;
 	}
 	//CRIA A ÁRVORE DE HUFFMAN
-	//criarHuffman(&tree);
+	criaHuffman(&tree);
+	printf("\n%d",tree->arv->qtde);
 }

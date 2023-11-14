@@ -82,5 +82,59 @@ void criaCaixas(Box **boxI,auxStr **auxS)
 	}
 }
 
+void criaNovaCaixa(Tree **pri,Tree **seg,Box **novo)
+{
+	*novo = (Box*) malloc(sizeof(Box));
+	Tree *nArvo = (Tree*) malloc(sizeof(Tree));
+	nArvo->qtde = (*pri)->qtde + (*seg)->qtde;
+	nArvo->simb = '#';
+	if((*pri)->qtde>(*seg)->qtde)
+	{
+		nArvo->esq = *seg;
+		nArvo->dir = *pri;
+	}
+	else
+	{
+		nArvo->dir = *seg;
+		nArvo->esq = *pri;
+	}
+	(*novo)->arv = nArvo;
+	(*novo)->prox = NULL;
+	
+}
+
+void criaHuffman(Box **boxI)
+{
+	Box *aux=*boxI,*novo,*prox;
+	while(aux->prox!=NULL)
+	{
+		criaNovaCaixa(&aux->arv,&aux->prox->arv,&novo);
+		prox = aux->prox;
+		free(aux);
+		if(prox->prox==NULL)
+		{
+			free(prox);
+			*boxI = novo;
+		}
+		else
+		{
+			*boxI = prox->prox;
+			free(prox);
+			ordenaBox(*&boxI,&novo);
+		}
+		aux=*boxI;		
+	}
+}
+
+void exibeTree(Tree *raiz)
+{
+	if(raiz!=NULL)
+	{
+		exibeTree(raiz->esq);
+		exibeTree(raiz->dir);
+		printf("\nQTDE:%d SIMBOLO: %c",raiz->qtde,raiz->simb);
+	}
+}
+
 
 
