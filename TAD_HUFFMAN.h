@@ -172,5 +172,39 @@ void adicionaHuffmanCod(Tree *raiz,char cod[20],int *TL,auxStr **list)
 	}
 }
 
+void salvaTab(auxStr *list)
+{
+	FILE *ptr = fopen("tabela_codif.txt","wb");
+	while(list!=NULL)
+	{
+		fwrite(&list,sizeof(auxStr),1,ptr);
+		list = list->prox;
+	}
+	fclose(ptr);
+}
+
+void codificaFrase(auxStr *aux,auxStr *mapa)
+{
+	FILE *ptr = fopen("frase_codifi.txt","w");
+	char cod[250];
+	int TL=0,i;
+	auxStr *mapAux = mapa;
+	while(aux != NULL)
+	{
+		while(mapAux!=NULL&&strcmp(aux->palavra,mapAux->palavra)!=0)
+			mapAux = mapAux -> prox;
+		if(mapAux!=NULL)
+		{
+			for(i=0;mapAux->codHuff[i]!='\0';i++,TL++)
+				cod[TL] = mapAux->codHuff[i];
+		}
+		mapAux = mapa;
+		aux = aux->prox;
+	}
+	cod[TL] = '\0';
+	printf("\n%s",cod);
+	fprintf(ptr,"%s\n",cod);
+}
+
 
 

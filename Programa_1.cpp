@@ -109,10 +109,13 @@ int main()
 	int TL = 0;
 	char frase[350],auxC[20];
 	strcpy(frase,"Amo como ama o amor. Nao conheco nenhuma outra razao para amar senao amar.Que queres que te diga, alem de que te amo, se o que quero dizer-te e que te amo?");
+	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	separaPalavras(frase, &list);//SEPARA CADA PALAVRA DA FRASE
+	
 	setQtdeAll(frase,&list);//RODA PARA ACHAR A QTDE QUE AS PALAVRAS OCORREM
+	
 	//LAÇO PARA CRIAR AS LISTAS COM ÁRVORES
 	auxL = list;
 	while(auxL!=NULL)
@@ -120,24 +123,21 @@ int main()
 		criaCaixas(&tree,&auxL);
 		auxL = auxL->prox;
 	}
-	//EXIBINDO A LISTA DE PALAVRA E SUAS INFORMAÇÕES(AINDA SEM CÓDIGO BINÁRIO)
-	auxL = list;
-	while(auxL!=NULL)
-	{
-		printf("\nPALAVRA: %s	-	QTDE: %d	-Simbolo: %c",auxL->palavra,auxL->qtde,auxL->simbo);
-		auxL = auxL->prox;
-	}
-	printf("\n");
-	aux = tree;
-	/*EXIBE ESTADO ATUAL DA ÁRVORE
-	while(aux!=NULL)
-	{
-		printf("\nSIMBOLO: %c\tQUANTIDADE: %d",aux->arv->simb,aux->arv->qtde);
-		aux = aux->prox;
-	}*/
+	
 	//CRIA A ÁRVORE DE HUFFMAN
 	criaHuffman(&tree);
-	//exibeTree(tree->arv);
+
+	//ADICIONA O CAMINHO DE HUFFMAN
 	adicionaHuffmanCod(tree->arv,auxC,&TL,&list);
-	printf("\nPALAVRA: %c",tree->arv->dir->esq->dir->dir->esq->dir->simb);
+	
+	//SALVANDO A ESTRUTURA NO ARQUIVO BIN
+	salvaTab(list);
+	
+	/*CODIFICANDO FRASE PARA OUTRO PROGRAMA 
+	auxL=NULL;
+	separaPalavras("amo, nao conheco outra razao de e para amar, amo, alem de amar",&auxL);//criar outro separador
+	codificaFrase(auxL,list);
+	auxL=list;
+	printf("\n");*/
+	
 }
