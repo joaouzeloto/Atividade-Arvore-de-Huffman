@@ -1,3 +1,4 @@
+
 struct arvore
 {
 	char simb;
@@ -134,6 +135,40 @@ void exibeTree(Tree *raiz)
 		exibeTree(raiz->esq);
 		exibeTree(raiz->dir);
 		printf("\nQTDE:%d SIMBOLO: %c",raiz->qtde,raiz->simb);
+	}
+}
+
+
+void adicionaHuffmanCod(Tree *raiz,char cod[20],int *TL,auxStr **list)
+{
+	auxStr *aux;
+	if(raiz!=NULL)
+	{
+		if(raiz->esq!=NULL)
+		{
+			cod[*TL] = '0';
+			*TL = *TL + 1;
+			cod[*TL] = '\0';
+		}
+		else
+			*TL = *TL + 1;
+		adicionaHuffmanCod(raiz->esq,cod,&*TL,&*list);
+		*TL = *TL - 1;
+		if(raiz->dir!=NULL)
+		{
+			cod[*TL] = '1';
+			*TL = *TL + 1;
+			cod[*TL] = '\0';
+		}
+		else
+			*TL = *TL + 1;
+		adicionaHuffmanCod(raiz->dir,cod,&*TL,&*list);
+		*TL = *TL - 1;
+		aux = *list;
+		while(aux!=NULL&&aux->simbo!=raiz->simb)
+			aux = aux ->prox;
+		if(aux!=NULL)
+			strcpy(aux->codHuff,cod);
 	}
 }
 

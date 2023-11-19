@@ -106,7 +106,8 @@ int main()
 	//DECLARAÇÃO DE VARIÁVEIS
 	auxStr *list=NULL,*auxL;
 	Box *tree = NULL,* aux;
-	char frase[350];
+	int TL = 0;
+	char frase[350],auxC[20];
 	strcpy(frase,"Amo como ama o amor. Nao conheco nenhuma outra razao para amar senao amar.Que queres que te diga, alem de que te amo, se o que quero dizer-te e que te amo?");
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -128,13 +129,15 @@ int main()
 	}
 	printf("\n");
 	aux = tree;
-	//EXIBE ESTADO ATUAL DA ÁRVORE
+	/*EXIBE ESTADO ATUAL DA ÁRVORE
 	while(aux!=NULL)
 	{
 		printf("\nSIMBOLO: %c\tQUANTIDADE: %d",aux->arv->simb,aux->arv->qtde);
 		aux = aux->prox;
-	}
+	}*/
 	//CRIA A ÁRVORE DE HUFFMAN
 	criaHuffman(&tree);
-	exibeTree(tree->arv);
+	//exibeTree(tree->arv);
+	adicionaHuffmanCod(tree->arv,auxC,&TL,&list);
+	printf("\nPALAVRA: %c",tree->arv->dir->esq->dir->dir->esq->dir->simb);
 }
