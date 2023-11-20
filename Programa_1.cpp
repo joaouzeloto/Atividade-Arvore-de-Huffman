@@ -151,7 +151,7 @@ void setQtdeAll(char frase[],auxStr **palavras)
 int main()
 {
 	//DECLARAÇÃO DE VARIÁVEIS
-	auxStr *list=NULL,*auxL,*a,*alterado=NULL;
+	auxStr *list=NULL,*auxL,*alterado=NULL;
 	Box *tree = NULL,* aux;
 	int TL = 0;
 	char frase[350],auxC[20];
@@ -185,19 +185,4 @@ int main()
 	clivar("amo, nao conheco outra razao de e para amar, amo, alem de amar",&auxL);
 	ajustar(auxL,&alterado);
 	codificaFrase(alterado,list);
-	a = list;
-	while(a!=NULL)
-	{
-		printf("\nPALAVRA: %s - CODIGO: %s - SIMBOLO: %c",a->palavra,a->codHuff,a->simbo);
-		a = a->prox;
-	}
-	a = alterado;
-	printf("\n\n");
-	printf("Simb: %c",tree->arv->dir->dir->dir->esq->dir->simb);
-	printf("\n\n");
-	while(a != NULL)
-	{
-		printf("\nPALAVRA: %s",a->palavra);
-		a = a->prox;
-	}
 }

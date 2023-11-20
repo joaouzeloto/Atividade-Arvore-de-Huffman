@@ -185,8 +185,8 @@ void salvaTab(auxStr *list)
 
 void codificaFrase(auxStr *aux,auxStr *mapa)
 {
-	FILE *ptr = fopen("frase_codifi.txt","w");
-	char cod[250],auxCod[250];
+	FILE *ptr = fopen("frase_codifi.txt","w+");
+	char cod[250];
 	int TL=0,i;
 	auxStr *mapAux = mapa;
 	while(aux != NULL)
@@ -202,7 +202,7 @@ void codificaFrase(auxStr *aux,auxStr *mapa)
 		aux = aux->prox;
 	}
 	printf("\n%s",cod);
-	fprintf(ptr,"%s\n",auxCod);
+	fprintf(ptr,"%s\n",cod);
 }
 
 
