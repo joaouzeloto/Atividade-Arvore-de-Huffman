@@ -59,6 +59,53 @@ void separaPalavras(char frase[],auxStr **list)
 	
 }
 
+void ajustar(auxStr *list,auxStr **alterado)
+{
+	auxStr *aux = list;
+	while(aux!=NULL)
+	{
+		insereNaList(aux->palavra,*&alterado);
+		aux = aux->prox;
+	}
+}
+
+void clivar(char frase[],auxStr **list)
+{
+	auxStr *aux = NULL;
+	int i=0,j;
+	char palavra[30];
+	while(frase[i]!='\0')
+	{
+		if(frase[i]>64&&frase[i]<91||frase[i]>96&&frase[i]<123||frase[i]=='-')
+		{
+			
+			for(j=0;frase[i]>64&&frase[i]<91||frase[i]>96&&frase[i]<123||frase[i]=='-';j++)
+			{
+				if(frase[i]>64&&frase[i]<91)
+					palavra[j] = frase[i]+32;
+				else
+					palavra[j] = frase[i];
+				i++;
+			}
+			palavra[j] = '\0';
+			i--;
+			insereNaList(palavra,*&list);
+		}
+		else
+		{
+			if(frase[i]==' ')
+			{
+				for(j=0;frase[i]==' ';i++,j++)
+					palavra[j] = frase[i];
+				palavra[j] = '\0';
+				i--;
+				insereNaList(palavra,*&list);
+			}
+		}
+			i++;		
+	}
+}
+
 void contaPalavras(auxStr **aux, char frase[])
 {
 	int i=0,j;
@@ -104,7 +151,7 @@ void setQtdeAll(char frase[],auxStr **palavras)
 int main()
 {
 	//DECLARAÇÃO DE VARIÁVEIS
-	auxStr *list=NULL,*auxL;
+	auxStr *list=NULL,*auxL,*a,*alterado=NULL;
 	Box *tree = NULL,* aux;
 	int TL = 0;
 	char frase[350],auxC[20];
@@ -133,11 +180,24 @@ int main()
 	//SALVANDO A ESTRUTURA NO ARQUIVO BIN
 	salvaTab(list);
 	
-	/*CODIFICANDO FRASE PARA OUTRO PROGRAMA 
+	//CODIFICANDO FRASE PARA OUTRO PROGRAMA 
 	auxL=NULL;
-	separaPalavras("amo, nao conheco outra razao de e para amar, amo, alem de amar",&auxL);//criar outro separador
-	codificaFrase(auxL,list);
-	auxL=list;
-	printf("\n");*/
-	
+	clivar("amo, nao conheco outra razao de e para amar, amo, alem de amar",&auxL);
+	ajustar(auxL,&alterado);
+	codificaFrase(alterado,list);
+	a = list;
+	while(a!=NULL)
+	{
+		printf("\nPALAVRA: %s - CODIGO: %s - SIMBOLO: %c",a->palavra,a->codHuff,a->simbo);
+		a = a->prox;
+	}
+	a = alterado;
+	printf("\n\n");
+	printf("Simb: %c",tree->arv->dir->dir->dir->esq->dir->simb);
+	printf("\n\n");
+	while(a != NULL)
+	{
+		printf("\nPALAVRA: %s",a->palavra);
+		a = a->prox;
+	}
 }
