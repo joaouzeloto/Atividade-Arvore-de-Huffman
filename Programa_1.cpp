@@ -185,4 +185,5 @@ int main()
 	clivar("amo, nao conheco outra razao de e para amar, amo, alem de amar",&auxL);
 	ajustar(auxL,&alterado);
 	codificaFrase(alterado,list);
+	exibeTree(tree->arv);
 }

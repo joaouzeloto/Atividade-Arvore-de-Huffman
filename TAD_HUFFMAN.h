@@ -132,9 +132,9 @@ void exibeTree(Tree *raiz)
 {
 	if(raiz!=NULL)
 	{
+		printf("\nSIMBOLO: %c",raiz->simb);
 		exibeTree(raiz->esq);
 		exibeTree(raiz->dir);
-		printf("\nQTDE:%d SIMBOLO: %c",raiz->qtde,raiz->simb);
 	}
 }
 
@@ -174,10 +174,16 @@ void adicionaHuffmanCod(Tree *raiz,char cod[20],int *TL,auxStr **list)
 
 void salvaTab(auxStr *list)
 {
+	auxStr a;
 	FILE *ptr = fopen("tabela_codif.txt","wb");
 	while(list!=NULL)
 	{
-		fwrite(&list,sizeof(auxStr),1,ptr);
+		strcpy(a.palavra,list->palavra);
+		strcpy(a.codHuff,list->codHuff);
+		a.qtde = list->qtde;
+		a.simbo = list->simbo;
+		a.prox = NULL;
+		fwrite(&a,sizeof(auxStr),1,ptr);
 		list = list->prox;
 	}
 	fclose(ptr);
@@ -204,6 +210,73 @@ void codificaFrase(auxStr *aux,auxStr *mapa)
 	printf("\n%s",cod);
 	fprintf(ptr,"%s\n",cod);
 }
+
+void criaNo(Tree **raiz,char sim)
+{
+	*raiz = (Tree*) malloc(sizeof(Tree));
+	(*raiz)->simb = sim;
+	(*raiz)->esq = NULL;
+	(*raiz)->dir =NULL;
+	(*raiz)->qtde = 0;
+}
+
+void recuperaTree(Tree **raiz,auxStr *list)
+{
+	Tree *aux;
+	int i;
+	criaNo(*&raiz,'#');
+	aux = *raiz;
+	while(list!=NULL)
+	{
+		for(i=0;list->codHuff[i]!='\0';i++)
+		{
+			if(list->codHuff[i]=='0')
+			{
+				if(aux->esq!=NULL)
+					aux = aux->esq;
+				else
+				{
+					if(list->codHuff[i+1]!='\0')
+					{
+						criaNo(&aux->esq,'#');
+						aux = *raiz;
+						i = 0;
+					}
+					else
+					{
+						criaNo(&aux->esq,list->simbo);
+					}
+						
+				}
+			}
+			else
+			{
+				if(list->codHuff[i]=='1')
+				{
+					if(aux->dir!=NULL)
+						aux = aux->dir;
+					else
+					{
+						if(list->codHuff[i+1]!='\0')
+						{
+							criaNo(&aux->dir,'#');
+							aux = *raiz;
+							i = 0;
+						}
+						else
+						{
+							criaNo(&aux->dir,list->simbo);
+						}
+							
+					}
+				}
+			}
+		}
+		aux = *raiz;
+		list = list->prox;
+	}	
+}
+
 
 
 
