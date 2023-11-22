@@ -233,6 +233,7 @@ void recuperaTree(Tree **raiz,auxStr *list)
 		//printf("\n%c",list->simbo);
 		for(i=0;list->codHuff[i]!='\0';i++)
 		{
+			printf("\n%d",i);
 			if(list->codHuff[i]=='0')
 			{
 				if((*raiz)->esq!=NULL)
@@ -240,7 +241,7 @@ void recuperaTree(Tree **raiz,auxStr *list)
 					if(list->codHuff[i+1]=='\0')
 						(*raiz)->esq->simb = list->simbo;
 					else
-						(*raiz) = (*raiz)->esq;
+						*raiz = (*raiz)->esq;
 				}
 				else
 				{
@@ -249,7 +250,7 @@ void recuperaTree(Tree **raiz,auxStr *list)
 						criaNo(&(*raiz)->esq,'#');
 						*raiz = aux;
 						//printf("\n1: %d",*raiz);
-						i = 0;
+						i = -1;
 					}
 					else
 					{
@@ -267,7 +268,7 @@ void recuperaTree(Tree **raiz,auxStr *list)
 						if(list->codHuff[i+1]=='\0')
 							(*raiz)->dir->simb = list->simbo;
 						else
-							(*raiz) = (*raiz)->dir;	
+							*raiz = (*raiz)->dir;	
 					}
 					else
 					{
@@ -276,7 +277,7 @@ void recuperaTree(Tree **raiz,auxStr *list)
 							criaNo(&(*raiz)->dir,'#');
 							*raiz = aux;
 							//printf("\n2: %d",*raiz);
-							i = 0;
+							i = -1;
 						}
 						else
 						{
@@ -290,6 +291,51 @@ void recuperaTree(Tree **raiz,auxStr *list)
 		*raiz = aux;
 		list = list->prox;
 	}	
+}
+
+void buscaSimbExibe(char a,auxStr *tab)
+{
+	while(tab!=NULL&&tab->simbo!=a)
+		tab = tab->prox;
+	if(tab!=NULL)
+		printf("%s",tab->palavra);
+}
+
+void exibeFrase(FILE *ptr,Tree *arv,auxStr *tab)
+{
+	Tree *arvAux = arv;
+	char bit;
+	int i=0;
+	bit = getc(ptr);
+	printf("\n");
+	while(bit!='\0')
+	{
+		while(arvAux->dir!=NULL&&arvAux->esq!=NULL&&i==0)
+		{
+			if(bit=='0')
+				arvAux = arvAux->esq;
+			else
+				if(bit=='1')
+					arvAux = arvAux->dir;
+			bit = getc(ptr);
+		}
+		buscaSimbExibe(arvAux->simb,tab);
+		arvAux = arv;
+		bit = getc(ptr);
+	}
+}
+
+void exibeArv(Tree *a)
+{
+	int i;
+	static int n = -1;
+	if( a==NULL) return;
+	n++;
+	exibeArv(a->dir);
+	for(i=0; i<5*n;i++) printf(" ");
+	printf(" (%c)\n",a->simb);
+	exibeArv(a->esq);
+	n--;
 }
 
 
