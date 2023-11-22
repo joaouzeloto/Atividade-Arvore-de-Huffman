@@ -226,25 +226,34 @@ void recuperaTree(Tree **raiz,auxStr *list)
 	int i;
 	criaNo(*&raiz,'#');
 	aux = *raiz;
+	//printf("\nP: %d",aux);
 	while(list!=NULL)
 	{
+		//printf("\n%d",&aux);
+		//printf("\n%c",list->simbo);
 		for(i=0;list->codHuff[i]!='\0';i++)
 		{
 			if(list->codHuff[i]=='0')
 			{
-				if(aux->esq!=NULL)
-					aux = aux->esq;
+				if((*raiz)->esq!=NULL)
+				{
+					if(list->codHuff[i+1]=='\0')
+						(*raiz)->esq->simb = list->simbo;
+					else
+						(*raiz) = (*raiz)->esq;
+				}
 				else
 				{
 					if(list->codHuff[i+1]!='\0')
 					{
-						criaNo(&aux->esq,'#');
-						aux = *raiz;
+						criaNo(&(*raiz)->esq,'#');
+						*raiz = aux;
+						//printf("\n1: %d",*raiz);
 						i = 0;
 					}
 					else
 					{
-						criaNo(&aux->esq,list->simbo);
+						criaNo(&(*raiz)->esq,list->simbo);
 					}
 						
 				}
@@ -253,26 +262,32 @@ void recuperaTree(Tree **raiz,auxStr *list)
 			{
 				if(list->codHuff[i]=='1')
 				{
-					if(aux->dir!=NULL)
-						aux = aux->dir;
+					if((*raiz)->dir!=NULL)
+					{
+						if(list->codHuff[i+1]=='\0')
+							(*raiz)->dir->simb = list->simbo;
+						else
+							(*raiz) = (*raiz)->dir;	
+					}
 					else
 					{
 						if(list->codHuff[i+1]!='\0')
 						{
-							criaNo(&aux->dir,'#');
-							aux = *raiz;
+							criaNo(&(*raiz)->dir,'#');
+							*raiz = aux;
+							//printf("\n2: %d",*raiz);
 							i = 0;
 						}
 						else
 						{
-							criaNo(&aux->dir,list->simbo);
+							criaNo(&(*raiz)->dir,list->simbo);
 						}
 							
 					}
 				}
 			}
 		}
-		aux = *raiz;
+		*raiz = aux;
 		list = list->prox;
 	}	
 }

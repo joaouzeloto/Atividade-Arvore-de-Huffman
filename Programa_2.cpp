@@ -41,7 +41,14 @@ int main()
 	Tree *arvore;
 	FILE *ptrBin = fopen("tabela_codif.txt","rb");
 	auxStr *tabela=NULL,*exibe;
-	transforma(&tabela,ptrBin);//transforma o cod binario em tabela;
-	//recuperaTree(&arvore,tabela);
-	//exibeTree(arvore);
+	transforma(&tabela,ptrBin);//transforma o arq binario em tabela;
+	recuperaTree(&arvore,tabela);
+	exibe = tabela;
+	while(exibe!=NULL)
+	{
+		printf("\nPALAVRA: %s - COD: %s",exibe->palavra,exibe->codHuff);
+		exibe = exibe->prox;
+	}
+	exibeTree(arvore);
+	//printf("\n%c",arvore->esq->->esq-simb);
 }
