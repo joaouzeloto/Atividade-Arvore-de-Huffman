@@ -38,18 +38,11 @@ void transforma(auxStr **a,FILE *arq)
 
 int main()
 {
+	char ola[4];
 	Tree *arvore;
 	FILE *ptrBin = fopen("tabela_codif.txt","rb"), *ptrCod = fopen("frase_codifi.txt","r");
 	auxStr *tabela=NULL,*exibe;
 	transforma(&tabela,ptrBin);//transforma o arq binario em tabela;
 	recuperaTree(&arvore,tabela);
-	//exibe = tabela;
-	/*while(exibe!=NULL)
-	{
-		printf("\nPALAVRA: %s - COD: %s",exibe->palavra,exibe->codHuff);
-		exibe = exibe->prox;
-	}*/
-	exibeTree(arvore);
 	exibeFrase(ptrCod,arvore,tabela);
-	//printf("\n%c",arvore->dir->dir->simb);
 }
