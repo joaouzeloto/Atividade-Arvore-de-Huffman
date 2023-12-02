@@ -157,7 +157,6 @@ int main()
 	char frase[350],auxC[20];
 	strcpy(frase,"Amo como ama o amor. Nao conheco nenhuma outra razao para amar senao amar.Que queres que te diga, alem de que te amo, se o que quero dizer-te e que te amo?");
 	
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	separaPalavras(frase, &list);//SEPARA CADA PALAVRA DA FRASE
 	
@@ -180,10 +179,9 @@ int main()
 	//SALVANDO A ESTRUTURA NO ARQUIVO BIN
 	salvaTab(list);
 	
-	//CODIFICANDO FRASE PARA OUTRO PROGRAMA 
+	//CODIFICANDO FRASE PARA O OUTRO PROGRAMA 
 	auxL=NULL;
 	clivar("amo, nao conheco outra razao de e para amar, amo, alem de amar",&auxL);
 	ajustar(auxL,&alterado);
 	codificaFrase(alterado,list);
-	exibeTree(tree->arv);
 }
